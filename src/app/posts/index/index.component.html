@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="form-group">
+    <input type="text" class="form-control" [formControl]="titleFilter">
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 col-md-4" *ngFor="let post of posts | filter:'title':keyword">
+    <div class="thumbnail">
+      <img src="http://placehold.it/300x200" alt="...">
+      <div class="caption">
+        <h3><a [routerLink]="['/posts', post.id]">{{post.title}}</a></h3>
+        <p><app-stars [rating]="post.rating"></app-stars>{{post.rating | processNull:'未评价'}}</p>
+        <p>{{post.content}}</p>
+        <p><a [routerLink]="['/posts', post.id, 'edit']" class="btn btn-primary" role="button">edit</a> <a [routerLink]="['/posts', post.id]" class="btn btn-danger" role="button">delete</a></p>
+      </div>
+    </div>
+  </div>
+</div>

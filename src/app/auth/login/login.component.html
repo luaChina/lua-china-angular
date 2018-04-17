@@ -1,0 +1,13 @@
+<form action="" [formGroup]="formModel" (submit)="onSubmit()">
+  <div class="form-group">
+    <label for="username">用户名</label>
+    <input type="text" class="form-control" id="username" formControlName="username">
+  </div>
+  <div class="form-group">
+    <label for="password">密码</label>
+    <input type="text" class="form-control" id="password" formControlName="password">
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary">提交</button>
+  </div>
+</form>

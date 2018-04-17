@@ -1,0 +1,51 @@
+<form [formGroup]="formModel" (submit)="onSubmit()" class="form-horizontal">
+  <div class="form-group has-feedback" [class.has-error]="formModel.get('username').invalid && formModel.get('username').touched" [class.has-success]="formModel.get('username').valid && formModel.get('username').touched">
+    <label for="username" class="col-sm-4 control-label">username</label>
+    <div class="col-sm-8">
+      <input type="text" name="username" id="username" class="form-control" formControlName="username">
+      <span class="glyphicon glyphicon-remove form-control-feedback" *ngIf="formModel.get('username').invalid && formModel.get('username').touched"></span>
+      <span class="glyphicon glyphicon-ok form-control-feedback" *ngIf="formModel.get('username').valid && formModel.get('username').touched"></span>
+      <div class="help-block" [class.hidden]="!formModel.hasError('required',['username']) || formModel.get('username').untouched">用户名是必填项</div>
+      <div class="text-danger" [hidden]="!formModel.hasError('minlength',['username']) || formModel.get('username').untouched">用户名最小长度4位</div>
+    </div>
+  </div>
+  <div class="form-group has-feedback" [class.has-error]="formModel.get('phone').invalid && formModel.get('phone').touched" [class.has-success]="formModel.get('phone').valid && formModel.get('phone').touched">
+    <label for="phone" class="col-sm-4 control-label">phone</label>
+    <div class="col-sm-8">
+      <input type="text" name="phone" id="phone" class="form-control" formControlName="phone">
+      <span class="glyphicon glyphicon-warning-sign form-control-feedback" *ngIf="!formModel.get('phone').pending"></span>
+      <span class="glyphicon glyphicon-remove form-control-feedback" *ngIf="formModel.hasError('phoneError',['phone']) && formModel.get('phone').touched"></span>
+      <span class="glyphicon glyphicon-ok form-control-feedback" *ngIf="formModel.get('phone').valid && formModel.get('phone').touched"></span>
+      <span class="text-danger" *ngIf="formModel.hasError('phoneError',['phone']) && formModel.get('phone').touched">{{formModel.getError('phoneError','phone').errorMsg}}</span>
+    </div>
+  </div>
+  <div formGroupName="passwordsGroup">
+    <div class="form-group has-feedback" [class.has-error]="formModel.hasError('minlength',['passwordsGroup','password'])">
+      <label for="password" class="col-sm-4 control-label">password</label>
+      <div class="col-sm-8">
+        <input type="password" name="password" id="password" class="form-control" formControlName="password">
+        <div class="text-danger" [hidden]="!formModel.hasError('minlength',['passwordsGroup','password'])">密码最小长度6位</div>
+      </div>
+    </div>
+    <div class="form-group has-feedback" [class.has-error]="formModel.hasError('confirmError',['passwordsGroup'])">
+      <label for="password_confirm" class="col-sm-4 control-label">repeat password</label>
+      <div class="col-sm-8">
+        <input type="password" name="password_confirm" id="password_confirm" class="form-control"
+               formControlName="passwordConfirm">
+        <div class="text-danger" [hidden]="!formModel.hasError('confirmError',['passwordsGroup'])">密码不一致</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" *ngFor="let email of formModel.get('emails').value; let i=index">
+    <label class="col-sm-4 control-label" [for]="email+i">emails</label>
+    <div class="col-sm-8">
+      <input type="email" name="password_confirm" class="form-control"
+             formArrayName="emails" [value]="email" [id]="email+i">
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success pull-right" (click)="addEmail()">增加邮箱</button>
+    <button class="btn btn-primary pull-right">提交</button>
+  </div>
+</form>
+{{formModel.get('phone').pending}}

@@ -1,0 +1,9 @@
+<div class="row">
+  <form action="" (submit)="onSubmit()" enctype="multipart/form-data">
+    <input type="file"
+           name="file"
+           (change)="onFileChange($event)"
+    >
+    <button type="submit">提交</button>
+  </form>
+</div>
